@@ -5,10 +5,12 @@ import {
   Route,
   Redirect
 } from 'react-router-dom';
+import './App.scss';
 
 // Components
 import Login from './Login';
 import SignUp from './SignUp';
+import NotFound from './NotFound';
 
 const App = () => {
   return (
@@ -19,6 +21,7 @@ const App = () => {
           <Redirect exact from="/" to="/login" />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={SignUp} />
+          <Route component={NotFound} />
         </Switch>
       </Router>
     </div>

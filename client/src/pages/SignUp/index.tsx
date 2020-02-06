@@ -7,13 +7,17 @@ const SignUpReschedule = Yup.object().shape({
   email: Yup.string()
     .email()
     .required('Email is required'),
-  password: Yup.string().required('Password is required')
+  password: Yup.string().required('Password is required'),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref('password'), null], 'Passwords do not match')
+    .required('Reenter your password')
 });
 
 class SignUp extends React.Component {
   render() {
     return (
-      <div>
+      <div className="SignUp">
+        <h3 className="component-header">Sign Up</h3>
         <Formik
           initialValues={{
             name: '',
@@ -26,7 +30,7 @@ class SignUp extends React.Component {
             // signup user
             setSubmitting(false);
           }}
-          render={({ errors, isSubmitting }) => (
+          render={({ errors, touched, isSubmitting }) => (
             <Form>
               <div className="form-field">
                 <label className="required">Name</label>
@@ -37,7 +41,7 @@ class SignUp extends React.Component {
                   type="text"
                 />
                 <div className="form-error">
-                  {errors.name ? errors.name : null}
+                  {errors.name && touched.name ? errors.name : null}
                 </div>
               </div>
               <div className="form-field">
@@ -49,7 +53,7 @@ class SignUp extends React.Component {
                   type="text"
                 />
                 <div className="form-error">
-                  {errors.email ? errors.email : null}
+                  {errors.email && touched.email ? errors.email : null}
                 </div>
               </div>
               <div className="form-field">
@@ -61,7 +65,7 @@ class SignUp extends React.Component {
                   type="password"
                 />
                 <div className="form-error">
-                  {errors.password ? errors.password : null}
+                  {errors.password && touched.password ? errors.password : null}
                 </div>
               </div>
               <div className="form-field">
@@ -73,7 +77,9 @@ class SignUp extends React.Component {
                   type="password"
                 />
                 <div className="form-error">
-                  {errors.confirmPassword ? errors.confirmPassword : null}
+                  {errors.confirmPassword && touched.confirmPassword
+                    ? errors.confirmPassword
+                    : null}
                 </div>
               </div>
               <button
@@ -81,7 +87,7 @@ class SignUp extends React.Component {
                 type="submit"
                 disabled={isSubmitting}
               >
-                Login
+                Sign Up
               </button>
             </Form>
           )}

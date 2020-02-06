@@ -12,7 +12,8 @@ const LoginReschedule = Yup.object().shape({
 class Login extends React.Component {
   render() {
     return (
-      <div>
+      <div className="Login">
+        <h3 className="component-header">Login</h3>
         <Formik
           initialValues={{
             email: '',
@@ -32,6 +33,7 @@ class Login extends React.Component {
                   name="email"
                   placeholder="Enter email"
                   type="text"
+                  label="email"
                 />
                 <div className="form-error">
                   {errors.email ? errors.email : null}
@@ -44,6 +46,7 @@ class Login extends React.Component {
                   name="password"
                   placeholder="Enter password"
                   type="password"
+                  label="password"
                 />
                 <div className="form-error">
                   {errors.password ? errors.password : null}
