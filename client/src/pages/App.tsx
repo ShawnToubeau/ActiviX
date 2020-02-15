@@ -10,7 +10,9 @@ import './App.scss';
 // Components
 import Login from './Login';
 import SignUp from './SignUp';
+import Dashboard from './Dashboard';
 import NotFound from './NotFound';
+import PrivateRoute from '../components/PrivateRoute';
 
 const App = () => {
   return (
@@ -21,6 +23,7 @@ const App = () => {
           <Redirect exact from="/" to="/login" />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={SignUp} />
+          <PrivateRoute path="/dashboard" component={Dashboard} />
           <Route component={NotFound} />
         </Switch>
       </Router>

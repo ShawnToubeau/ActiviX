@@ -5,7 +5,7 @@ import { createBrowserHistory } from 'history';
 import thunk from 'redux-thunk';
 
 // Root reducer
-import { rootReducer } from '../reducers';
+import rootReducer from '../reducers';
 
 export const history = createBrowserHistory();
 
@@ -17,6 +17,6 @@ if (process.env.NODE_ENV === 'development') {
   middleware = compose(middleware);
 }
 
-const store = createStore(rootReducer(history), middleware) as Store<any>;
+const store = createStore(rootReducer, middleware) as Store<any>;
 
 export default store;
