@@ -1,6 +1,19 @@
 import React from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import { Formik, Field, Form, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
+
+import { signUpUser } from '../../actions/authActions';
+import User from '../../models/User';
+
+interface FormUser extends User {
+  confirmPassword?: String;
+}
+
+interface Props {
+  signUpUser: (user: User) => void;
+}
 
 const SignUpReschedule = Yup.object().shape({
   name: Yup.string().required('Name is required'),
@@ -13,7 +26,7 @@ const SignUpReschedule = Yup.object().shape({
     .required('Reenter your password')
 });
 
-class SignUp extends React.Component {
+class SignUp extends React.Component<Props> {
   render() {
     return (
       <div className="SignUp">
@@ -26,8 +39,15 @@ class SignUp extends React.Component {
             confirmPassword: ''
           }}
           validationSchema={SignUpReschedule}
-          onSubmit={(user: any, { setSubmitting }: FormikHelpers<any>) => {
-            // signup user
+          onSubmit={(user: FormUser, { setSubmitting }: FormikHelpers<any>) => {
+            const newUser: User = {
+              name: user.name,
+              email: user.email,
+              password: user.password
+            };
+
+            this.props.signUpUser(newUser);
+
             setSubmitting(false);
           }}
           render={({ errors, touched, isSubmitting }) => (
@@ -101,4 +121,13 @@ class SignUp extends React.Component {
   }
 }
 
-export default SignUp;
+const mapDispatchToProps = (dispatch: any) => {
+  return bindActionCreators(
+    {
+      signUpUser
+    },
+    dispatch
+  );
+};
+
+export default connect(null, mapDispatchToProps)(SignUp);

@@ -7,13 +7,14 @@ import { Dispatch, AnyAction } from 'redux';
 import User from '../models/User';
 // Actions
 import setAuthToken from '../utils/setAuthToken';
+import { routerActions } from 'connected-react-router';
 
-// Register User
-export const registerUser = (userData: User) => (dispatch: Dispatch): void => {
+// Sign up user
+export const signUpUser = (userData: User) => (dispatch: Dispatch): void => {
   axios
     .post('/users', userData)
     .then((res: AxiosResponse) => {
-      // TODO: redirect to Login
+      // dispatch(routerActions.go('/login'));
     })
     .catch(err => {
       console.log(err);
@@ -24,7 +25,7 @@ export const registerUser = (userData: User) => (dispatch: Dispatch): void => {
     });
 };
 
-// Login User
+// Login user
 export const loginUser = (userData: User) => (dispatch: Dispatch): void => {
   axios
     .post('/login', userData)
@@ -45,7 +46,7 @@ export const loginUser = (userData: User) => (dispatch: Dispatch): void => {
     );
 };
 
-// Set User
+// Set user
 export const setCurrentUser = (decoded: unknown): AnyAction => {
   return {
     type: SET_CURRENT_USER,
@@ -53,7 +54,7 @@ export const setCurrentUser = (decoded: unknown): AnyAction => {
   };
 };
 
-// Loading User
+// Loading user
 export const setUserLoading = (): {} => {
   return {
     type: USER_LOADING

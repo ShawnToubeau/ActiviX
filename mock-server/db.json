@@ -1,0 +1,66 @@
+{
+  "users": [
+    {
+      "name": "Shawn",
+      "email": "shawn@aol.com",
+      "id": 1
+    },
+    {
+      "name": "Abbo",
+      "email": "abbo@aol.com",
+      "password": "$2a$10$njDQe9.aPre3oesRdNVb/eTLG9AqVxGC73vk.1OINWeQy8F.BwCkq",
+      "id": 2
+    },
+    {
+      "name": "Elmo",
+      "email": "elmo@aol.com",
+      "password": "$2a$10$.odmvedJEzRNG35pQ/sbGehmaNK52kBfHatTAZzT7kNVW35SSQDSi",
+      "confirmPassword": "1234",
+      "id": 3
+    },
+    {
+      "name": "sam",
+      "email": "sam@aol.com",
+      "password": "$2a$10$QUW2uzCATuE2Pyv7C8sfn.oPCbSf40bKp2do31yo3GWo6RJsmGUP2",
+      "confirmPassword": "1234",
+      "id": 4
+    },
+    {
+      "name": "egg",
+      "email": "egg@aol.com",
+      "password": "$2a$10$CcL4Gs3kjQPsIJa.GCQtSu4foIdpyaLiV57Enqu00sYE.JLzfqw3y",
+      "id": 5
+    },
+    {
+      "name": "egg",
+      "email": "egg@aol.com",
+      "password": "$2a$10$cUA8tul8K7JJHDSiNhC3D.zstZxcogD.B95NiQduKJGIfvYuesYsu",
+      "id": 6
+    },
+    {
+      "name": "cake",
+      "email": "cake@aol.com",
+      "password": "$2a$10$zTvHHhsFpzkUcH15HeA22eChp23y4wMCIAIiYrxm33ZbLPfpea5ea",
+      "confirmPassword": "1234",
+      "id": 7
+    },
+    {
+      "name": "bake",
+      "email": "bake@aol.com",
+      "password": "$2a$10$yHwY/sUVUltSq8dL.uEwZuGJrKkqXR2c7f1arVHtZ3KQIioouhaDG",
+      "id": 8
+    },
+    {
+      "name": "coin",
+      "email": "coin@aol.com",
+      "password": "$2a$10$E.J3hKqfbj0ZGtTB4Mpu8.I0DXpVCDOpjpLJPN/O8hSNBQ.GKKkQG",
+      "id": 9
+    },
+    {
+      "name": "water",
+      "email": "water@aol.com",
+      "password": "$2a$10$v9zadRAE2qkp7JFv25LllOHm8Oyd2tD0wDYJHZV06heD3ilqod5KW",
+      "id": 10
+    }
+  ]
+}

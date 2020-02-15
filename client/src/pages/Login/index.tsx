@@ -1,6 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Formik, Field, Form, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
+
+// Redux
+import { loginUser } from '../../actions/authActions';
+// import { RootState } from 'typesafe-actions';
 
 const LoginReschedule = Yup.object().shape({
   email: Yup.string()
@@ -9,7 +15,11 @@ const LoginReschedule = Yup.object().shape({
   password: Yup.string().required('Password is provided')
 });
 
-class Login extends React.Component {
+interface Props {
+  loginUser: (userData: any) => void;
+}
+
+class Login extends React.Component<Props> {
   render() {
     return (
       <div className="Login">
@@ -21,7 +31,7 @@ class Login extends React.Component {
           }}
           validationSchema={LoginReschedule}
           onSubmit={(user: any, { setSubmitting }: FormikHelpers<any>) => {
-            // login user
+            this.props.loginUser(user);
             setSubmitting(false);
           }}
           render={({ errors, isSubmitting }) => (
@@ -71,4 +81,13 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch: any) => {
+  return bindActionCreators(
+    {
+      loginUser
+    },
+    dispatch
+  );
+};
+
+export default connect(null, mapDispatchToProps)(Login);
