@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { bindActionCreators, Dispatch } from 'redux';
 import { Formik, Field, Form, FormikHelpers } from 'formik';
 import { LoginValidation } from '../../utils/validationSchemas';
 
@@ -76,7 +76,7 @@ class Login extends React.Component<Props> {
   }
 }
 
-const mapDispatchToProps = (dispatch: any) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return bindActionCreators(
     {
       loginUser

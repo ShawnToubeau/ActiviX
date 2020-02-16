@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 // Reducers
 import { Auth } from '../reducers/authReducer';
 // Interfaces
-// import { RootState } from 'typesafe-actions';
+import { RootState } from 'typesafe-actions';
 
 interface Props extends RouteProps {
   auth?: Auth;
@@ -23,7 +23,7 @@ class PrivateRoute extends Route<Props> {
   }
 }
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: RootState) => ({
   auth: state.auth
 });
 

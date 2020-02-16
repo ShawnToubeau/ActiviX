@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { bindActionCreators, Dispatch } from 'redux';
 import { ConnectedRouter } from 'connected-react-router';
 
 import setAuthToken from '../utils/setAuthToken';
@@ -21,7 +21,7 @@ import store, { history } from '../store/store';
 import { setCurrentUser, logoutUser } from '../actions/authActions';
 
 // Interfaces
-// import { RootState } from 'typesafe-actions';
+import { RootState } from 'typesafe-actions';
 
 interface TokenDto {
   exp: number;
@@ -60,14 +60,14 @@ const App = () => {
   );
 };
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: RootState) => ({
   auth: state.auth
 });
 
-const mapDispatchToProps = (dispatch: any) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return bindActionCreators(
     {
-      logout: logoutUser
+      logoutUser
     },
     dispatch
   );

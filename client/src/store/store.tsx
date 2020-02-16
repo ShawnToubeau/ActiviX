@@ -8,8 +8,6 @@ import rootReducer from '../reducers/rootReducer';
 
 export const history = createBrowserHistory();
 
-const initialState = {};
-
 let middleware = applyMiddleware(routerMiddleware(history), thunk);
 
 // Redux dev tools
@@ -19,10 +17,6 @@ if (process.env.NODE_ENV === 'development') {
   middleware = compose(middleware);
 }
 
-const store = createStore(
-  rootReducer(history),
-  initialState,
-  middleware
-) as Store<any>;
+const store = createStore(rootReducer(history), middleware) as Store<any>;
 
 export default store;
