@@ -61,6 +61,24 @@
       "email": "water@aol.com",
       "password": "$2a$10$v9zadRAE2qkp7JFv25LllOHm8Oyd2tD0wDYJHZV06heD3ilqod5KW",
       "id": 10
+    },
+    {
+      "name": "pc",
+      "email": "pc@aol.com",
+      "password": "$2a$10$HegdKZPHNznBDAekWaYsYOHmfVnJ3lOb/BeR.N2S8kYbdsnU5BneK",
+      "id": 11
+    },
+    {
+      "name": "pc",
+      "email": "pc@aol.com",
+      "password": "$2a$10$EcU0nagKKiMHVosxUpG2mudZPNvq3fPb8VDIyeX.QxVSVJhfnN4bm",
+      "id": 12
+    },
+    {
+      "name": "pc",
+      "email": "pc@aol.com",
+      "password": "$2a$10$sRjG/.yy1JwMSfHh1Jbx8ua/ih4YVjjUSNYw05sGVR53Xne1tyHJS",
+      "id": 13
     }
   ]
 }

@@ -1,30 +1,28 @@
 import React from 'react';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect
-} from 'react-router-dom';
-import setAuthToken from '../utils/setAuthToken';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { ConnectedRouter } from 'connected-react-router';
+
+import setAuthToken from '../utils/setAuthToken';
 import './App.scss';
 
 // Components
-import Login from './Login';
-import SignUp from './SignUp';
-import Dashboard from './Dashboard';
-import NotFound from './NotFound';
+import Login from './Login/Login';
+import SignUp from './SignUp/SignUp';
+import Dashboard from './Dashboard/Dashboard';
+import NotFound from './NotFound/NotFound';
 import PrivateRoute from '../components/PrivateRoute';
 import PublicRoute from '../components/PublicRoute';
 
-// Redux
-import store from '../store/store';
+import store, { history } from '../store/store';
+// Actions
 import { setCurrentUser, logoutUser } from '../actions/authActions';
 
 // Interfaces
-import { RootState } from 'typesafe-actions';
+// import { RootState } from 'typesafe-actions';
+
 interface TokenDto {
   exp: number;
   iat: number;
@@ -48,7 +46,7 @@ if (localStorage.jwtToken) {
 const App = () => {
   return (
     <div className="App">
-      <Router>
+      <ConnectedRouter history={history}>
         <h2 className="app-header">ActiviX</h2>
         <Switch>
           <Redirect exact from="/" to="/login" />
@@ -57,19 +55,19 @@ const App = () => {
           <PrivateRoute path="/dashboard" component={Dashboard} />
           <Route component={NotFound} />
         </Switch>
-      </Router>
+      </ConnectedRouter>
     </div>
   );
 };
 
-const mapStateToProps = (state: RootState) => ({
+const mapStateToProps = (state: any) => ({
   auth: state.auth
 });
 
 const mapDispatchToProps = (dispatch: any) => {
   return bindActionCreators(
     {
-      logoutUser
+      logout: logoutUser
     },
     dispatch
   );

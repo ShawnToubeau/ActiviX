@@ -4,15 +4,13 @@ import { routerMiddleware } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
 import thunk from 'redux-thunk';
 
-// Root reducer
 import rootReducer from '../reducers/rootReducer';
 
 export const history = createBrowserHistory();
 
-let middleware = applyMiddleware(routerMiddleware(history), thunk);
-
-// Rehydrate state
 const initialState = {};
+
+let middleware = applyMiddleware(routerMiddleware(history), thunk);
 
 // Redux dev tools
 if (process.env.NODE_ENV === 'development') {
@@ -21,6 +19,10 @@ if (process.env.NODE_ENV === 'development') {
   middleware = compose(middleware);
 }
 
-const store = createStore(rootReducer(history), initialState, middleware);
+const store = createStore(
+  rootReducer(history),
+  initialState,
+  middleware
+) as Store<any>;
 
 export default store;

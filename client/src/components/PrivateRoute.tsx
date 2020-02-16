@@ -2,9 +2,11 @@ import React from 'react';
 import { Route, Redirect, RouteProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-// Interfaces
+// Reducers
 import { Auth } from '../reducers/authReducer';
-import { RootState } from 'typesafe-actions';
+// Interfaces
+// import { RootState } from 'typesafe-actions';
+
 interface Props extends RouteProps {
   auth?: Auth;
 }
@@ -21,7 +23,7 @@ class PrivateRoute extends Route<Props> {
   }
 }
 
-const mapStateToProps = (state: RootState) => ({
+const mapStateToProps = (state: any) => ({
   auth: state.auth
 });
 

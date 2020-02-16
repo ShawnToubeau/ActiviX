@@ -1,20 +1,21 @@
 import axios, { AxiosResponse } from 'axios';
 import jwt_decode from 'jwt-decode';
-import { GET_ERRORS, SET_CURRENT_USER, USER_LOADING } from './types';
 import { Dispatch, AnyAction } from 'redux';
-
-// Models
-import User from '../models/User';
-// Actions
-import setAuthToken from '../utils/setAuthToken';
 import { routerActions } from 'connected-react-router';
+
+import { GET_ERRORS, SET_CURRENT_USER, USER_LOADING } from './types';
+import setAuthToken from '../utils/setAuthToken';
+
+// Interfaces
+import User from '../models/User';
 
 // Sign up user
 export const signUpUser = (userData: User) => (dispatch: Dispatch): void => {
   axios
     .post('/users', userData)
     .then((res: AxiosResponse) => {
-      // dispatch(routerActions.go('/login'));
+      // Redirect to login on successful sign up
+      dispatch(routerActions.push('/login'));
     })
     .catch(err => {
       console.log(err);
@@ -61,12 +62,15 @@ export const setUserLoading = (): {} => {
   };
 };
 
-// Logout User
-export const logoutUser = () => (dispatch: Dispatch): void => {
+// Logout user
+export const logoutUser = (): AnyAction => {
   // Remove token from localstorage
   localStorage.removeItem('jwtToken');
   // Remove Axios auth header
   setAuthToken(null);
   // Remove user data
-  dispatch(setCurrentUser({}));
+  return {
+    type: SET_CURRENT_USER,
+    payload: {}
+  };
 };

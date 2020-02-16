@@ -2,9 +2,14 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Formik, Field, Form, FormikHelpers } from 'formik';
-import * as Yup from 'yup';
 
+// Validation Schema
+import { SignUpValidation } from '../../utils/validationSchemas';
+
+// Actions
 import { signUpUser } from '../../actions/authActions';
+
+// Interfaces
 import User from '../../models/User';
 
 interface FormUser extends User {
@@ -14,17 +19,6 @@ interface FormUser extends User {
 interface Props {
   signUpUser: (user: User) => void;
 }
-
-const SignUpReschedule = Yup.object().shape({
-  name: Yup.string().required('Name is required'),
-  email: Yup.string()
-    .email()
-    .required('Email is required'),
-  password: Yup.string().required('Password is required'),
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref('password'), null], 'Passwords do not match')
-    .required('Reenter your password')
-});
 
 class SignUp extends React.Component<Props> {
   render() {
@@ -38,7 +32,7 @@ class SignUp extends React.Component<Props> {
             password: '',
             confirmPassword: ''
           }}
-          validationSchema={SignUpReschedule}
+          validationSchema={SignUpValidation}
           onSubmit={(user: FormUser, { setSubmitting }: FormikHelpers<any>) => {
             const newUser: User = {
               name: user.name,
@@ -47,7 +41,6 @@ class SignUp extends React.Component<Props> {
             };
 
             this.props.signUpUser(newUser);
-
             setSubmitting(false);
           }}
           render={({ errors, touched, isSubmitting }) => (

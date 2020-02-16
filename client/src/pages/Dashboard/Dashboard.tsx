@@ -1,12 +1,16 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import store from '../../store/store';
 
+// Actions
 import { logoutUser } from '../../actions/authActions';
-
-import { RootState } from 'typesafe-actions';
+// Reducers
 import { Auth } from '../../reducers/authReducer';
+// Interfaces
+// import { RootState } from 'typesafe-actions';
 import User from '../../models/User';
+
 interface Props {
   logoutUser: () => void;
   auth: Auth;
@@ -23,21 +27,21 @@ class Dashboard extends React.Component<Props> {
 
     return (
       <div>
-        <h1>Welcome</h1>
-        <button onClick={() => this.props.logoutUser()}>Logout</button>
+        <h1>Welcome {user.name}</h1>
+        <button onClick={() => store.dispatch(logoutUser())}>Logout</button>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state: RootState) => ({
+const mapStateToProps = (state: any) => ({
   auth: state.auth
 });
 
 const mapDispatchToProps = (dispatch: any) => {
   return bindActionCreators(
     {
-      logoutUser
+      logout: logoutUser
     },
     dispatch
   );
