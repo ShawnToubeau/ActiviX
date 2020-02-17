@@ -3,6 +3,8 @@ import { bindActionCreators, Dispatch, AnyAction } from 'redux';
 import { connect } from 'react-redux';
 import store from '../../store/store';
 
+// Components
+import ActivityList from '../../components/Activity/ActivityList';
 // Actions
 import { logoutUser } from '../../actions/authActions';
 // Reducers
@@ -29,6 +31,7 @@ class Dashboard extends React.Component<Props> {
       <div>
         <h1>Welcome {user.name}</h1>
         <button onClick={() => store.dispatch(logoutUser())}>Logout</button>
+        <ActivityList />
       </div>
     );
   }

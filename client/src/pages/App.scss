@@ -117,3 +117,27 @@ form {
     padding-bottom: 20px;
   }
 }
+
+.activity-dot {
+  width: 20px;
+  height: 20px;
+  border: 1px solid gray;
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+
+  .inner-dot {
+    width: 80%;
+    height: 80%;
+    border-radius: 25px;
+    margin: auto;
+  }
+
+  .completed {
+    background-color: blue;
+  }
+}
+
+.bounded-activity {
+  display: flex;
+}
