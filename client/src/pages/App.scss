@@ -118,26 +118,103 @@ form {
   }
 }
 
-.activity-dot {
-  width: 20px;
-  height: 20px;
-  border: 1px solid gray;
-  border-radius: 25px;
-  display: flex;
-  justify-content: center;
+.Dashboard {
+  .header {
+    display: flex;
+    padding-left: 2%;
+    padding-right: 2%;
+    margin-bottom: 3px;
 
-  .inner-dot {
-    width: 80%;
-    height: 80%;
-    border-radius: 25px;
-    margin: auto;
-  }
-
-  .completed {
-    background-color: blue;
+    button {
+      margin-left: auto;
+      margin-top: auto;
+      margin-bottom: auto;
+    }
   }
 }
 
-.bounded-activity {
+.ActivityList {
+  padding-bottom: 7px;
+
+  .list-items {
+    padding-left: 2%;
+  }
+
+  .list-item:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.BoundedActivity {
   display: flex;
+  margin-bottom: 7px;
+
+  .completion-status {
+    display: flex;
+    justify-content: flex-end;
+    width: 20%;
+
+    .activity-dot {
+      width: 20px;
+      height: 20px;
+      border: 1px solid gray;
+      border-radius: 25px;
+      display: flex;
+      justify-content: center;
+      margin-left: 5px;
+
+      .inner-dot {
+        width: 80%;
+        height: 80%;
+        border-radius: 25px;
+        margin: auto;
+      }
+
+      .completed {
+        background-color: green;
+      }
+    }
+  }
+
+  .activity-name {
+    margin-left: 15px;
+  }
+}
+
+.UnboundedActivity {
+  display: flex;
+  margin-bottom: 7px;
+
+  .duration {
+    width: 20%;
+    text-align: right;
+  }
+
+  .activity-name {
+    margin-left: 15px;
+  }
+}
+
+.Accordion {
+  .AccordionSection {
+    background-color: antiquewhite;
+    // margin-bottom: 7px;
+
+    .accordion-section-header {
+      border: 1px solid gray;
+      cursor: pointer;
+      // transition: 0.4s;
+    }
+
+    // .hidden {
+    //   max-height: 0;
+    //   overflow: hidden;
+    // }
+
+    .accordion-section-content {
+      max-height: fit-content;
+      margin-top: 7px;
+      // transition: all ease-in;
+    }
+  }
 }

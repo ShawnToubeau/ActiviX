@@ -5,6 +5,7 @@ import store from '../../store/store';
 
 // Components
 import ActivityList from '../../components/Activity/ActivityList';
+import Accordion from '../../components/Accordion/Accordion';
 // Actions
 import { logoutUser } from '../../actions/authActions';
 // Reducers
@@ -28,10 +29,19 @@ class Dashboard extends React.Component<Props> {
     }
 
     return (
-      <div>
-        <h1>Welcome {user.name}</h1>
-        <button onClick={() => store.dispatch(logoutUser())}>Logout</button>
-        <ActivityList />
+      <div className="Dashboard">
+        <div className="header">
+          <h1>Welcome {user.name}</h1>
+          <button onClick={() => store.dispatch(logoutUser())}>Logout</button>
+        </div>
+        <Accordion sections={["Today's Activities", 'Weekly Activities']}>
+          <div>
+            <ActivityList />
+          </div>
+          <div>
+            <p>Weekly Activities WIP</p>
+          </div>
+        </Accordion>
       </div>
     );
   }

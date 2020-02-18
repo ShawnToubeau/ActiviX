@@ -1,8 +1,8 @@
 import React from 'react';
 
-const ActivityDot = (completed: boolean) => {
+const ActivityDot = (completed: boolean, id: number) => {
   return (
-    <div className="activity-dot">
+    <div className="activity-dot" key={id}>
       <div className={`inner-dot ${completed ? 'completed' : ''}`}></div>
     </div>
   );
@@ -21,13 +21,13 @@ class BoundedActivity extends React.Component<Props> {
 
     for (let i = 0; i < occurrence; i++) {
       const complete = i <= completed - 1;
-      dots.push(ActivityDot(complete));
+      dots.push(ActivityDot(complete, i));
     }
 
     return (
-      <div className="bounded-activity">
-        {dots}
-        {name}
+      <div className="BoundedActivity list-item">
+        <div className="completion-status">{dots}</div>
+        <p className="activity-name">{name}</p>
       </div>
     );
   }

@@ -6,19 +6,25 @@ import UnboundedActivity from './UnboundedActivity';
 // Test data
 const activities: (BActivity | UBActivity)[] = [
   {
-    name: 'brush teeth',
+    name: 'Brush Teeth',
     type: 'bounded',
     occurrence: 2,
     completed: 1
   },
   {
-    name: 'take shower',
+    name: 'Take Shower',
     type: 'bounded',
     occurrence: 1,
-    completed: 0
+    completed: 1
   },
   {
-    name: 'go outside',
+    name: 'Eat',
+    type: 'bounded',
+    occurrence: 3,
+    completed: 2
+  },
+  {
+    name: 'Go Outside',
     type: 'unbounded',
     duration: '02:03:40'
   }
@@ -32,30 +38,32 @@ const isUBActivity = (object: any): object is UBActivity => {
   return 'duration' in object;
 };
 
-// Constructs a list of both types of activities
-const createActivityList = () => {
-  return activities.map(activity => {
-    if (isBActivity(activity)) {
-      return (
-        <BoundedActivity
-          name={activity.name}
-          occurrence={activity.occurrence}
-          completed={activity.completed}
-        />
-      );
-    } else if (isUBActivity(activity)) {
-      return (
-        <UnboundedActivity name={activity.name} duration={activity.duration} />
-      );
-    }
-  });
-};
-
 const ActivityList = () => {
   return (
-    <div>
-      List
-      {createActivityList()}
+    <div className="ActivityList">
+      <div className="list-items">
+        {/* eslint-disable-next-line */}
+        {activities.map((activity, id) => {
+          if (isBActivity(activity)) {
+            return (
+              <BoundedActivity
+                key={id}
+                name={activity.name}
+                occurrence={activity.occurrence}
+                completed={activity.completed}
+              />
+            );
+          } else if (isUBActivity(activity)) {
+            return (
+              <UnboundedActivity
+                key={id}
+                name={activity.name}
+                duration={activity.duration}
+              />
+            );
+          }
+        })}
+      </div>
     </div>
   );
 };

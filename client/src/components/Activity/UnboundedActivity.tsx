@@ -5,17 +5,17 @@ interface Props {
   duration: String;
 }
 
-class UnBoundedActivity extends React.Component<Props> {
+class UnboundedActivity extends React.Component<Props> {
   render() {
     const { name, duration } = this.props;
 
     return (
-      <div className="bounded-activity">
-        {duration}
-        {name}
+      <div className="UnboundedActivity list-item">
+        <p className="duration">{duration}</p>
+        <p className="activity-name">{name}</p>
       </div>
     );
   }
 }
 
-export default UnBoundedActivity;
+export default UnboundedActivity;
