@@ -1,4 +1,6 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
 export interface Props {
   children: Object;
@@ -13,21 +15,21 @@ class AccordionSection extends React.Component<Props> {
 
     return (
       <div className="AccordionSection">
-        <div onClick={onClick} className="accordion-section-header">
-          {label}
-          <div style={{ float: 'right' }}>
-            {!isOpen && <span>&#9650;</span>}
-            {isOpen && <span>&#9660;</span>}
+        <div onClick={onClick} className={`header ${isOpen ? 'expanded' : ''}`}>
+          <div className="header-container">
+            <p>{label}</p>
+            <div className="header-icon">
+              <FontAwesomeIcon
+                icon={faChevronDown}
+                className={`${isOpen ? 'rotate-open' : 'rotate-closed'}`}
+              />
+            </div>
           </div>
         </div>
-        {isOpen && (
-          <div className={'accordion-section-content'}>
-            {this.props.children}
-          </div>
-        )}
-        {/* <div className={`accordion-section-content ${isOpen ? '' : 'hidden'}`}>
+
+        <div className={`content ${isOpen ? 'entered' : 'hidden'}`}>
           {this.props.children}
-        </div> */}
+        </div>
       </div>
     );
   }

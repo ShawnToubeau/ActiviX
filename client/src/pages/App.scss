@@ -72,14 +72,17 @@ form {
 }
 
 // Specific elements
-.app-header {
-  text-align: center;
+.app-logo {
+  width: 80%;
+  margin: auto;
+  display: block;
   margin-top: 5vh;
   margin-bottom: 10vh;
-  font-size: 2rem;
-  font-weight: 400;
-  line-height: 1.334;
-  letter-spacing: 0em;
+}
+
+.small-logo {
+  width: 60%;
+  margin-bottom: 5vh;
 }
 
 .Login,
@@ -121,9 +124,7 @@ form {
 .Dashboard {
   .header {
     display: flex;
-    padding-left: 2%;
-    padding-right: 2%;
-    margin-bottom: 3px;
+    padding: 10px;
 
     button {
       margin-left: auto;
@@ -131,18 +132,16 @@ form {
       margin-bottom: auto;
     }
   }
+
+  .button {
+    width: 100%;
+    height: 48px;
+    color: black;
+  }
 }
 
 .ActivityList {
-  padding-bottom: 7px;
-
-  .list-items {
-    padding-left: 2%;
-  }
-
-  .list-item:last-child {
-    margin-bottom: 0;
-  }
+  padding: 10px;
 }
 
 .BoundedActivity {
@@ -197,24 +196,55 @@ form {
 
 .Accordion {
   .AccordionSection {
-    background-color: antiquewhite;
-    // margin-bottom: 7px;
-
-    .accordion-section-header {
-      border: 1px solid gray;
-      cursor: pointer;
-      // transition: 0.4s;
+    .expanded {
+      height: 40px !important;
+      transition: height 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
     }
 
-    // .hidden {
-    //   max-height: 0;
-    //   overflow: hidden;
-    // }
+    .header {
+      background-color: #ffffff;
+      border-top: 1px solid #eee;
+      cursor: pointer;
+      height: 30px;
+      transition: height 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+      box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+        0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
 
-    .accordion-section-content {
-      max-height: fit-content;
-      margin-top: 7px;
-      // transition: all ease-in;
+      .header-container {
+        display: flex;
+        width: 100%;
+      }
+
+      p,
+      .header-icon {
+        margin-top: auto;
+        margin-bottom: auto;
+      }
+
+      .header-icon {
+        margin-left: auto;
+
+        .rotate-open {
+          transform: rotate(180deg);
+          transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+        }
+
+        .rotate-closed {
+          transform: rotate(0deg);
+          transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+        }
+      }
+    }
+
+    .content {
+      height: auto;
+      transition: height 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    }
+
+    .hidden {
+      visibility: hidden;
+      transition: height 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+      height: 0;
     }
   }
 }

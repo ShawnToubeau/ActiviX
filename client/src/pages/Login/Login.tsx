@@ -29,7 +29,7 @@ class Login extends React.Component<Props> {
             this.props.loginUser(user);
             setSubmitting(false);
           }}
-          render={({ errors, isSubmitting }) => (
+          render={({ errors, touched, isSubmitting }) => (
             <Form>
               <div className="form-field">
                 <label className="required">Email</label>
@@ -41,7 +41,7 @@ class Login extends React.Component<Props> {
                   label="email"
                 />
                 <div className="form-error">
-                  {errors.email ? errors.email : null}
+                  {errors.email && touched.email ? errors.email : null}
                 </div>
               </div>
               <div className="form-field">
@@ -54,7 +54,7 @@ class Login extends React.Component<Props> {
                   label="password"
                 />
                 <div className="form-error">
-                  {errors.password ? errors.password : null}
+                  {errors.password && touched.password ? errors.password : null}
                 </div>
               </div>
               <button

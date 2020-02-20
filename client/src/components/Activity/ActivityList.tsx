@@ -24,9 +24,20 @@ const activities: (BActivity | UBActivity)[] = [
     completed: 2
   },
   {
-    name: 'Go Outside',
+    name: 'Study',
     type: 'unbounded',
     duration: '02:03:40'
+  },
+  {
+    name: 'Read',
+    type: 'unbounded',
+    duration: '00:30:00'
+  },
+  {
+    name: 'Finish Homework',
+    type: 'bounded',
+    occurrence: 1,
+    completed: 0
   }
 ];
 

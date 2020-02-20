@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import { ConnectedRouter } from 'connected-react-router';
 
+import Logo from '../assets/activix_logo_alt-01.png';
 import setAuthToken from '../utils/setAuthToken';
 import './App.scss';
 
@@ -22,6 +23,7 @@ import { setCurrentUser, logoutUser } from '../actions/authActions';
 
 // Interfaces
 import { RootState } from 'typesafe-actions';
+import { Auth } from '../reducers/authReducer';
 
 interface TokenDto {
   exp: number;
@@ -43,11 +45,22 @@ if (localStorage.jwtToken) {
   }
 }
 
-const App = () => {
+interface Props {
+  auth: Auth;
+}
+
+const App = (props: Props) => {
   return (
     <div className="App">
       <ConnectedRouter history={history}>
-        <h2 className="app-header">ActiviX</h2>
+        {/* <h2 className="app-header">ActiviX</h2> */}
+        <img
+          className={`app-logo ${
+            props.auth.isAuthenticated ? 'small-logo' : ''
+          }`}
+          src={Logo}
+          alt="ActiviX Logo"
+        />
         <Switch>
           <Redirect exact from="/" to="/login" />
           <PublicRoute path="/login" component={Login} />

@@ -31,17 +31,23 @@ class Dashboard extends React.Component<Props> {
     return (
       <div className="Dashboard">
         <div className="header">
-          <h1>Welcome {user.name}</h1>
+          <h2>Welcome {user.name}</h2>
           <button onClick={() => store.dispatch(logoutUser())}>Logout</button>
         </div>
-        <Accordion sections={["Today's Activities", 'Weekly Activities']}>
+        <Accordion
+          sections={["Today's Activities", 'Weekly History', 'Monthly History']}
+        >
           <div>
             <ActivityList />
           </div>
           <div>
-            <p>Weekly Activities WIP</p>
+            <p className="ActivityList">Weekly History WIP</p>
+          </div>
+          <div>
+            <p className="ActivityList">Monthly History WIP</p>
           </div>
         </Accordion>
+        <button className="button">Record Mood</button>
       </div>
     );
   }
