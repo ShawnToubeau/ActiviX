@@ -14,7 +14,7 @@ class AccordionSection extends React.Component<Props> {
     const { isOpen, label, onClick } = this.props;
 
     return (
-      <div className="AccordionSection">
+      <div className={`AccordionSection ${isOpen ? 'flex-section' : ''}`}>
         <div onClick={onClick} className={`header ${isOpen ? 'expanded' : ''}`}>
           <div className="header-container">
             <p>{label}</p>
