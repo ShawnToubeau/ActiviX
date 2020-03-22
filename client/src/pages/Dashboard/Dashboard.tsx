@@ -6,6 +6,7 @@ import store from '../../store/store';
 // Components
 import ActivityList from '../../components/Activity/ActivityList';
 import Accordion from '../../components/Accordion/Accordion';
+import WeeklyHistory from '../../components/WeeklyHistory/WeeklyHistory';
 // Actions
 import { logoutUser } from '../../actions/authActions';
 // Reducers
@@ -100,7 +101,7 @@ class Dashboard extends React.Component<Props, State> {
             <ActivityList />
           </div>
           <div>
-            <p className="ActivityList">Weekly History WIP</p>
+            <WeeklyHistory />
           </div>
           <div>
             <p className="ActivityList">Monthly History WIP</p>

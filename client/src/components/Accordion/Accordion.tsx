@@ -34,6 +34,7 @@ class Accordion extends React.Component<Props, State> {
         {children.map((child, id) => (
           <AccordionSection
             key={id}
+            id={id}
             isOpen={openSection === id}
             label={sections[id]}
             onClick={() => this.onClick(id)}
