@@ -19,9 +19,68 @@ interface Props {
   auth: Auth;
 }
 
-class Dashboard extends React.Component<Props> {
+interface State {
+  isModalOpen: boolean;
+  currentMood: number | null;
+  error: string | null;
+}
+
+class Dashboard extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+
+    this.state = {
+      isModalOpen: false,
+      currentMood: null,
+      error: null
+    };
+  }
+
+  // Closes the modal if the user clicks outside of the modal
+  closeModal = (target: EventTarget) => {
+    const modal = document.getElementById('modal-overlay');
+
+    if (target === modal) {
+      this.setState({ isModalOpen: false, currentMood: null, error: null });
+    }
+  };
+
+  createMoodScoreBtns = (numBtns: number) => {
+    const { currentMood } = this.state;
+    let btns = [];
+
+    for (let i = 0; i < numBtns; i++) {
+      btns.push(
+        <button
+          key={i}
+          className={currentMood === i + 1 ? 'selected' : ''}
+          onClick={e => this.setState({ currentMood: i + 1 })}
+        >
+          {i + 1}
+        </button>
+      );
+    }
+
+    return btns;
+  };
+
+  submitMoodScore = () => {
+    const { currentMood } = this.state;
+
+    if (currentMood === null) {
+      this.setState({ error: 'Please select a mood score' });
+      return;
+    }
+
+    // API call to backend
+    console.log('Recording mood: ', currentMood);
+
+    this.setState({ currentMood: null, isModalOpen: false });
+  };
+
   render() {
     const { auth } = this.props;
+    const { isModalOpen, error } = this.state;
     let user: User = {};
 
     if (auth && auth.isAuthenticated) {
@@ -47,7 +106,43 @@ class Dashboard extends React.Component<Props> {
             <p className="ActivityList">Monthly History WIP</p>
           </div>
         </Accordion>
-        <button className="button">Record Mood</button>
+        <button
+          className="button"
+          onClick={e => this.setState({ isModalOpen: true })}
+        >
+          Record Mood
+        </button>
+
+        {isModalOpen ? (
+          <div
+            className="modal-overlay"
+            id="modal-overlay"
+            onClick={e => this.closeModal(e.target)}
+          >
+            <div className="modal">
+              <div className="modal-header">
+                <h1>Record Mood</h1>
+                <button
+                  onClick={e =>
+                    this.setState({
+                      isModalOpen: false,
+                      currentMood: null,
+                      error: null
+                    })
+                  }
+                >
+                  Close
+                </button>
+              </div>
+              <hr></hr>
+              <div className="modal-content">
+                <div className="button-row">{this.createMoodScoreBtns(5)}</div>
+                {error ? <p className="error">{error}</p> : null}
+                <button onClick={e => this.submitMoodScore()}>Submit</button>
+              </div>
+            </div>
+          </div>
+        ) : null}
       </div>
     );
   }
@@ -60,7 +155,7 @@ const mapStateToProps = (state: RootState) => ({
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return bindActionCreators(
     {
-      logout: logoutUser
+      logoutUser
     },
     dispatch
   );
