@@ -1,90 +1,134 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSmile, faMeh, faFrown } from '@fortawesome/free-regular-svg-icons';
+import WeekTile from './WeekTile';
 
 import './WeeklyHistory.scss';
 
-const daysOfWeek = [
-  'Sunday',
-  'Monday',
-  'Tuesday',
-  'Wednesday',
-  'Thursday',
-  'Friday',
-  'Saturday'
-];
-
-interface SquareProps {
-  id: number;
-  date: String;
-  moodScore: number;
+interface WeeklyData {
+  mood: number;
+  time: string;
 }
 
-const SquareTile = (props: SquareProps) => {
-  const { date, moodScore, id } = props;
-  let icon;
+const recentData: WeeklyData[][] = [
+  [
+    {
+      mood: 4,
+      time: '10:03 AM'
+    },
+    {
+      mood: 3,
+      time: '12:03 AM'
+    },
+    {
+      mood: 2,
+      time: '7:03 AM'
+    }
+  ],
+  [
+    {
+      mood: 5,
+      time: '11:03 AM'
+    },
+    {
+      mood: 2,
+      time: '4:03 AM'
+    },
+    {
+      mood: 1,
+      time: '9:03 AM'
+    }
+  ],
+  [
+    {
+      mood: 5,
+      time: '11:03 AM'
+    },
+    {
+      mood: 2,
+      time: '4:03 AM'
+    },
+    {
+      mood: 1,
+      time: '9:03 AM'
+    }
+  ],
+  [
+    {
+      mood: 5,
+      time: '11:03 AM'
+    },
+    {
+      mood: 2,
+      time: '4:03 AM'
+    },
+    {
+      mood: 1,
+      time: '9:03 AM'
+    }
+  ],
+  [
+    {
+      mood: 5,
+      time: '11:03 AM'
+    },
+    {
+      mood: 2,
+      time: '4:03 AM'
+    },
+    {
+      mood: 1,
+      time: '9:03 AM'
+    }
+  ],
+  [
+    {
+      mood: 5,
+      time: '11:03 AM'
+    },
+    {
+      mood: 2,
+      time: '4:03 AM'
+    },
+    {
+      mood: 1,
+      time: '9:03 AM'
+    }
+  ]
+];
 
-  if (moodScore < 3) {
-    icon = faFrown;
-  } else if (moodScore < 5) {
-    icon = faMeh;
-  } else {
-    icon = faSmile;
-  }
-
-  return (
-    <div className="weekly-square" onClick={e => console.log(id)}>
-      <p>{date}</p>
-      <FontAwesomeIcon icon={icon} size="3x" />
-    </div>
-  );
-};
-
-const generateSquares = (moodScores: MoodScore[]) => {
-  const squares = moodScores.length;
+const generateTiles = (weeklyHistory: WeeklyData[][]) => {
+  const numTiles = weeklyHistory.length;
   let list = [];
 
-  for (let i = 0; i < squares; i++) {
-    const today = new Date();
-    let dayOfWeek = today.getDay() - i - 1;
-    const month = today.getMonth() + 1;
-    const day = today.getDate() - i - 1;
+  for (let i = 0; i < numTiles; i++) {
+    let totalMoodScore = 0;
 
-    // Resets dayOfWeek to Saturday
-    if (dayOfWeek < 0) {
-      dayOfWeek = dayOfWeek + 7;
-    }
+    weeklyHistory[i].forEach(recording => {
+      totalMoodScore = totalMoodScore + recording.mood;
+    });
 
-    const date = `${daysOfWeek[dayOfWeek]} ${month}/${day}`;
+    const avgMoodScore = Math.ceil(totalMoodScore / weeklyHistory[i].length);
 
-    const moodAvg = Math.ceil(moodScores[i].total / moodScores[i].recordings);
-
-    list.push(<SquareTile key={i} id={i} date={date} moodScore={moodAvg} />);
+    list.push(
+      <WeekTile
+        key={i}
+        id={i}
+        moodScore={avgMoodScore}
+        times={weeklyHistory[i]}
+      />
+    );
   }
 
   return list;
 };
 
-interface MoodScore {
-  recordings: number;
-  total: number;
-}
-
-interface Props {}
-
-const WeeklyHistory = (props: Props) => {
-  const moodScores = [
-    { recordings: 3, total: 14 },
-    { recordings: 2, total: 7 },
-    { recordings: 4, total: 18 },
-    { recordings: 2, total: 8 },
-    { recordings: 3, total: 6 },
-    { recordings: 1, total: 1 }
-  ];
-
+const WeeklyHistory = () => {
   return (
     <div className="WeeklyHistory">
-      <div className="grid">{generateSquares(moodScores)}</div>
+      {recentData.length > 0 ? (
+        <div className="grid">{generateTiles(recentData)}</div>
+      ) : (
+        <p>No weekly data.</p>
+      )}
     </div>
   );
 };

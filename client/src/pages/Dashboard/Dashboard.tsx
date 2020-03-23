@@ -7,6 +7,7 @@ import store from '../../store/store';
 import ActivityList from '../../components/Activity/ActivityList';
 import Accordion from '../../components/Accordion/Accordion';
 import WeeklyHistory from '../../components/WeeklyHistory/WeeklyHistory';
+import Modal from '../../components/Modal/Modal';
 // Actions
 import { logoutUser } from '../../actions/authActions';
 // Reducers
@@ -36,15 +37,6 @@ class Dashboard extends React.Component<Props, State> {
       error: null
     };
   }
-
-  // Closes the modal if the user clicks outside of the modal
-  closeModal = (target: EventTarget) => {
-    const modal = document.getElementById('modal-overlay');
-
-    if (target === modal) {
-      this.setState({ isModalOpen: false, currentMood: null, error: null });
-    }
-  };
 
   createMoodScoreBtns = (numBtns: number) => {
     const { currentMood } = this.state;
@@ -115,34 +107,20 @@ class Dashboard extends React.Component<Props, State> {
         </button>
 
         {isModalOpen ? (
-          <div
-            className="modal-overlay"
-            id="modal-overlay"
-            onClick={e => this.closeModal(e.target)}
+          <Modal
+            closeModal={() =>
+              this.setState({
+                isModalOpen: false,
+                currentMood: null,
+                error: null
+              })
+            }
+            headerText="Record Mood"
           >
-            <div className="modal">
-              <div className="modal-header">
-                <h1>Record Mood</h1>
-                <button
-                  onClick={e =>
-                    this.setState({
-                      isModalOpen: false,
-                      currentMood: null,
-                      error: null
-                    })
-                  }
-                >
-                  Close
-                </button>
-              </div>
-              <hr></hr>
-              <div className="modal-content">
-                <div className="button-row">{this.createMoodScoreBtns(5)}</div>
-                {error ? <p className="error">{error}</p> : null}
-                <button onClick={e => this.submitMoodScore()}>Submit</button>
-              </div>
-            </div>
-          </div>
+            <div className="button-row">{this.createMoodScoreBtns(5)}</div>
+            {error ? <p className="error">{error}</p> : null}
+            <button onClick={e => this.submitMoodScore()}>Submit</button>
+          </Modal>
         ) : null}
       </div>
     );
