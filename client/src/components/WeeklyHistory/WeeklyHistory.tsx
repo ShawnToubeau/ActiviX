@@ -1,4 +1,6 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSmile, faMeh, faFrown } from '@fortawesome/free-regular-svg-icons';
 
 import './WeeklyHistory.scss';
 
@@ -12,8 +14,34 @@ const daysOfWeek = [
   'Saturday'
 ];
 
-const generateSquares = () => {
-  const squares = 6;
+interface SquareProps {
+  id: number;
+  date: String;
+  moodScore: number;
+}
+
+const SquareTile = (props: SquareProps) => {
+  const { date, moodScore, id } = props;
+  let icon;
+
+  if (moodScore < 3) {
+    icon = faFrown;
+  } else if (moodScore < 5) {
+    icon = faMeh;
+  } else {
+    icon = faSmile;
+  }
+
+  return (
+    <div className="weekly-square" onClick={e => console.log(id)}>
+      <p>{date}</p>
+      <FontAwesomeIcon icon={icon} size="3x" />
+    </div>
+  );
+};
+
+const generateSquares = (moodScores: MoodScore[]) => {
+  const squares = moodScores.length;
   let list = [];
 
   for (let i = 0; i < squares; i++) {
@@ -29,18 +57,34 @@ const generateSquares = () => {
 
     const date = `${daysOfWeek[dayOfWeek]} ${month}/${day}`;
 
-    list.push(<div className="weekly-square">{date}</div>);
+    const moodAvg = Math.ceil(moodScores[i].total / moodScores[i].recordings);
+
+    list.push(<SquareTile key={i} id={i} date={date} moodScore={moodAvg} />);
   }
 
   return list;
 };
 
+interface MoodScore {
+  recordings: number;
+  total: number;
+}
+
 interface Props {}
 
 const WeeklyHistory = (props: Props) => {
+  const moodScores = [
+    { recordings: 3, total: 14 },
+    { recordings: 2, total: 7 },
+    { recordings: 4, total: 18 },
+    { recordings: 2, total: 8 },
+    { recordings: 3, total: 6 },
+    { recordings: 1, total: 1 }
+  ];
+
   return (
     <div className="WeeklyHistory">
-      <div className="grid">{generateSquares()}</div>
+      <div className="grid">{generateSquares(moodScores)}</div>
     </div>
   );
 };
