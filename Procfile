@@ -1,0 +1,1 @@
+web: node ./mock-client/src/app.js
