@@ -49,9 +49,7 @@ if (sessionSecret) {
 app.use(passport.initialize());
 passportConfig(passport);
 
-const dev = app.get('env') !== 'production';
-
-if (!dev) {
+if (process.env.NODE_ENV) {
   app.use(compression());
   app.use(morgan('common'));
 
