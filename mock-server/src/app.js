@@ -1,7 +1,9 @@
 import express from 'express';
 import cors from 'cors';
+import path from 'path';
 import bodyParser from 'body-parser';
 import session from 'express-session';
+import expressStaticGzip from 'express-static-gzip';
 import passport from 'passport';
 import { passportConfig } from './config/passport';
 
@@ -24,11 +26,18 @@ app.use(
 app.use(passport.initialize());
 passportConfig(passport);
 
+app.use(expressStaticGzip(path.join(__dirname, '../../client/build')));
+
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, '../../client/build')));
+
 // Routes
 app.use(userRoute);
 
-app.get('/', (req, res) => {
-  res.send('hello');
+// The "catchall" handler: for any request that doesn't
+// match one above, send back React's index.html file
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../../client/build/index.html'));
 });
 
 const PORT = 4000;
