@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node": "12.13.0"
+  },
   "scripts": {
     "build:client": "cd client && yarn install && yarn run build",
     "build:server": "cd server && yarn install && yarn run build",
