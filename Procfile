@@ -1,1 +1,1 @@
-web: node ./mock-client/src/app.js
+web: node ./mock-server/dist/app.js
