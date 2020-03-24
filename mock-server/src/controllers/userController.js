@@ -1,45 +1,35 @@
-import axios from 'axios';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-
-const dbUrl = process.env.DB_URL || 'http://localhost:5000';
+import User from '../models/User';
 
 export const getAllUsers = (req, res) => {
-  axios
-    .get(`${dbUrl}/users`)
-    .then(dbRes => {
-      const users = dbRes.data;
-
-      if (users) {
-        res.send(users);
-      }
-    })
-    .catch(err => {
+  User.find((err, users) => {
+    if (err) {
       res.send(err);
-    });
+    } else {
+      res.send(users);
+    }
+  });
 };
 
 export const getUser = (req, res) => {
-  const userId = req.params.id;
-
-  if (userId) {
-    axios
-      .get(`${dbUrl}/users/${userId}`)
-      .then(dbRes => {
-        const user = dbRes.data;
-
-        if (user) {
-          res.send(user);
-        }
-      })
-      .catch(err => {
-        res.send(err);
-      });
-  }
+  User.findById(req.params.id, (err, user) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send(user);
+    }
+  });
 };
 
 export const addUser = (req, res) => {
-  const user = req.body;
+  const { name, email, password } = req.body;
+
+  const user = new User({
+    name,
+    email,
+    password
+  });
 
   // Hash password
   bcrypt.genSalt(10, (err, salt) =>
@@ -49,71 +39,58 @@ export const addUser = (req, res) => {
       // Set password to hashed
       user.password = hash;
       // Save user
-      axios
-        .post(`${dbUrl}/users`, user)
-        .then(() => {
+      user
+        .save()
+        .then(user => {
           res.send('Added user');
         })
-        .catch(err => {
-          res.send(err);
-        });
+        .catch(err => res.send(err));
     })
   );
 };
 
 export const updateUser = (req, res) => {
-  const userId = req.params.id;
-  const updatedUser = req.body;
-
-  axios
-    .put(`${dbUrl}/users/${userId}`, updatedUser)
-    .then(() => {
-      res.send(`Updated user ${userId}`);
-    })
-    .catch(err => {
+  User.findByIdAndUpdate(req.params.id, req.body, (err, user) => {
+    if (err) {
       res.send(err);
-    });
+    } else {
+      res.send('Successfully updated user');
+    }
+  });
 };
 
 export const deleteUser = (req, res) => {
-  const userId = req.params.id;
-
-  if (userId) {
-    axios
-      .delete(`${dbUrl}/users/${userId}`)
-      .then(() => {
-        res.send(`Deleted user ${userId}`);
-      })
-      .catch(err => {
-        res.send(err);
-      });
-  }
+  User.deleteOne({ _id: req.params.id }, err => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send('Successfully deleted user');
+    }
+  });
 };
 
 // POST login
 export const loginUser = (req, res) => {
   const { email, password } = req.body;
 
-  axios
-    .get(`${dbUrl}/users?email=${email}`)
-    .then(dbRes => {
-      const user = dbRes.data[0];
+  User.findOne({ email }).then(user => {
+    if (!user) {
+      return res.status(404).json({ userNotFound: 'The user is not found' });
+    }
 
-      if (!user) {
-        return res.status(404).json({ userNotFound: 'The user is not found' });
-      }
+    // Match password
+    bcrypt.compare(password, user.password, (err, isMatch) => {
+      if (err) throw err;
 
-      // Match password
-      bcrypt.compare(password, user.password, (err, isMatch) => {
-        if (err) throw err;
+      if (isMatch) {
+        const payload = {
+          id: user.id,
+          name: user.name
+        };
 
-        if (isMatch) {
-          const payload = {
-            id: user.id,
-            name: user.name
-          };
+        const secretOrKey = process.env.JWT_SECRET;
 
-          const secretOrKey = 'secret';
+        if (secretOrKey) {
           jwt.sign(
             payload,
             secretOrKey,
@@ -123,13 +100,11 @@ export const loginUser = (req, res) => {
             }
           );
         } else {
-          return res
-            .status(404)
-            .json({ wrongPassword: 'Password is incorrect' });
+          console.error('ERROR: Please provide a JWT secret');
         }
-      });
-    })
-    .catch(err => {
-      res.send(err);
+      } else {
+        return res.status(404).json({ wrongPassword: 'Password is incorrect' });
+      }
     });
+  });
 };

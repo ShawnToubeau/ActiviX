@@ -1,4 +1,5 @@
 import express from 'express';
+import mongoose from 'mongoose';
 import cors from 'cors';
 import path from 'path';
 import bodyParser from 'body-parser';
@@ -7,9 +8,21 @@ import compression from 'compression';
 import morgan from 'morgan';
 import passport from 'passport';
 import { passportConfig } from './config/passport';
+require('dotenv').config();
 
 // Import Routes
 import userRoute from './routes/userRoute';
+
+const uri = process.env.MONGO_URI;
+
+if (uri) {
+  mongoose
+    .connect(uri, { useNewUrlParser: true })
+    .then(() => console.log('MongoDB connected'))
+    .catch(err => console.error(err));
+} else {
+  console.error('ERROR: Please provide a MongoDB URI');
+}
 
 const app = express();
 
@@ -17,13 +30,22 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
-app.use(
-  session({
-    secret: 'secret',
-    resave: true,
-    saveUninitialized: true
-  })
-);
+
+const sessionSecret = process.env.SESSION_SECRET;
+
+if (sessionSecret) {
+  app.use(
+    session({
+      secret: sessionSecret,
+      resave: true,
+      saveUninitialized: true
+    })
+  );
+} else {
+  console.error('ERROR: Please provide a session secret');
+}
+
+// Passport config
 app.use(passport.initialize());
 passportConfig(passport);
 
