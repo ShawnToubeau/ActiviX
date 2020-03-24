@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build:client": "cd client && yarn install && yarn run build",
+    "build:server": "cd server && yarn install && yarn run build",
+    "build": "concurrently yarn:build:*"
   },
   "repository": {
     "type": "git",
@@ -16,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/ShawnToubeau/ActiviX/issues"
   },
-  "homepage": "https://github.com/ShawnToubeau/ActiviX#readme"
+  "homepage": "https://github.com/ShawnToubeau/ActiviX#readme",
+  "dependencies": {
+    "concurrently": "^5.1.0"
+  }
 }

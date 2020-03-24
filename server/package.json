@@ -27,8 +27,7 @@
     "start:build": "babel src -w -d dist",
     "start:run": "nodemon dist/app.js",
     "start": "concurrently yarn:start:*",
-    "build-babel": "babel src -d dist",
-    "build": "yarn run clean && yarn run build-babel",
+    "build": "yarn run clean && babel src -d dist",
     "clean": "rm -rf dist && mkdir dist"
   },
   "devDependencies": {
