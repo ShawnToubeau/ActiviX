@@ -3,7 +3,8 @@ import cors from 'cors';
 import path from 'path';
 import bodyParser from 'body-parser';
 import session from 'express-session';
-import expressStaticGzip from 'express-static-gzip';
+import compression from 'compression';
+import morgan from 'morgan';
 import passport from 'passport';
 import { passportConfig } from './config/passport';
 
@@ -26,19 +27,24 @@ app.use(
 app.use(passport.initialize());
 passportConfig(passport);
 
-app.use(expressStaticGzip(path.join(__dirname, '../../client/build')));
+const dev = app.get('env') !== 'production';
 
-// Serve static files from the React app
-app.use(express.static(path.join(__dirname, '../../client/build')));
+if (!dev) {
+  app.use(compression());
+  app.use(morgan('common'));
+
+  // Serve static files from the React app
+  app.use(express.static(path.join(__dirname, '../../client/build')));
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../../client/build/index.html'));
+  });
+} else {
+  app.use(morgan('dev'));
+}
 
 // Routes
 app.use(userRoute);
 
-// The "catchall" handler: for any request that doesn't
-// match one above, send back React's index.html file
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../../client/build/index.html'));
-});
-
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => console.log(`Server is listening on ${PORT}`));

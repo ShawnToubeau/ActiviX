@@ -46,7 +46,9 @@ class SignUp extends React.Component<Props> {
           render={({ errors, touched, isSubmitting }) => (
             <Form>
               <div className="form-field">
-                <label className="required">Name</label>
+                <label className="required" htmlFor="name">
+                  Name
+                </label>
                 <Field
                   id="name"
                   name="name"
@@ -58,7 +60,9 @@ class SignUp extends React.Component<Props> {
                 </div>
               </div>
               <div className="form-field">
-                <label className="required">Email</label>
+                <label className="required" htmlFor="email">
+                  Email
+                </label>
                 <Field
                   id="email"
                   name="email"
@@ -70,7 +74,9 @@ class SignUp extends React.Component<Props> {
                 </div>
               </div>
               <div className="form-field">
-                <label className="required">Password</label>
+                <label className="required" htmlFor="password">
+                  Password
+                </label>
                 <Field
                   id="password"
                   name="password"
@@ -82,7 +88,9 @@ class SignUp extends React.Component<Props> {
                 </div>
               </div>
               <div className="form-field">
-                <label className="required">Confirm Password</label>
+                <label className="required" htmlFor="confirmPassword">
+                  Confirm Password
+                </label>
                 <Field
                   id="confirmPassword"
                   name="confirmPassword"

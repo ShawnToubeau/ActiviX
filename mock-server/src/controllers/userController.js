@@ -2,7 +2,7 @@ import axios from 'axios';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
-const dbUrl = 'http://localhost:5000';
+const dbUrl = process.env.DB_URL || 'http://localhost:5000';
 
 export const getAllUsers = (req, res) => {
   axios

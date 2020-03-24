@@ -32,7 +32,9 @@ class Login extends React.Component<Props> {
           render={({ errors, touched, isSubmitting }) => (
             <Form>
               <div className="form-field">
-                <label className="required">Email</label>
+                <label className="required" htmlFor="email">
+                  Email
+                </label>
                 <Field
                   id="email"
                   name="email"
@@ -45,7 +47,9 @@ class Login extends React.Component<Props> {
                 </div>
               </div>
               <div className="form-field">
-                <label className="required">Password</label>
+                <label className="required" htmlFor="password">
+                  Password
+                </label>
                 <Field
                   id="password"
                   name="password"
