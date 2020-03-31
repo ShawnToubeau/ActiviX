@@ -28,22 +28,23 @@ if (uri) {
   console.error('ERROR: Please provide a MongoDB URI');
 }
 
+// Configures push notifications
+const webPushContact = process.env.WEB_PUSH_CONTACT;
+const publicVapidKey = process.env.PUBLIC_VAPID_KEY;
+const privateVapidKey = process.env.PRIVATE_VAPID_KEY;
+
+if (webPushContact && publicVapidKey && privateVapidKey) {
+  webpush.setVapidDetails(webPushContact, publicVapidKey, privateVapidKey);
+} else {
+  console.error('ERROR: Unable to setup vapid details');
+}
+
 const app = express();
 
 // Middlewares
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
-
-console.log('HERE');
-console.log(process.env.MONGO_URI);
-
-// Configures push notifications
-webpush.setVapidDetails(
-  process.env.WEB_PUSH_CONTACT,
-  process.env.PUBLIC_VAPID_KEY,
-  process.env.PRIVATE_VAPID_KEY
-);
 
 const sessionSecret = process.env.SESSION_SECRET;
 
