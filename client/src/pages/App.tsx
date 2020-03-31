@@ -4,6 +4,7 @@ import jwt_decode from 'jwt-decode';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import { ConnectedRouter } from 'connected-react-router';
+import { subscribeUser } from '../subscription';
 
 import Logo from '../assets/activix_logo_alt-01.png';
 import setAuthToken from '../utils/setAuthToken';
@@ -50,6 +51,14 @@ interface Props {
 }
 
 const App = (props: Props) => {
+  const { auth } = props;
+
+  // If the user is logged in, try to subscribe
+  // them to notifications
+  if (auth.isAuthenticated) {
+    subscribeUser(auth.user.id);
+  }
+
   return (
     <div className="App">
       <ConnectedRouter history={history}>

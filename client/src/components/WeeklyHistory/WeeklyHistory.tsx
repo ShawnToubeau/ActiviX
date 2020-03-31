@@ -15,12 +15,54 @@ const recentData: WeeklyData[][] = [
       time: '10:03 AM'
     },
     {
+      mood: 4,
+      time: '12:03 PM'
+    },
+    {
+      mood: 5,
+      time: '7:03 PM'
+    }
+  ],
+  [
+    {
+      mood: 2,
+      time: '11:03 AM'
+    },
+    {
+      mood: 2,
+      time: '4:03 PM'
+    },
+    {
+      mood: 1,
+      time: '9:03 PM'
+    }
+  ],
+  [
+    {
       mood: 3,
-      time: '12:03 AM'
+      time: '11:03 AM'
+    },
+    {
+      mood: 3,
+      time: '4:03 PM'
+    },
+    {
+      mood: 1,
+      time: '9:03 PM'
+    }
+  ],
+  [
+    {
+      mood: 1,
+      time: '11:03 AM'
     },
     {
       mood: 2,
-      time: '7:03 AM'
+      time: '4:03 PM'
+    },
+    {
+      mood: 1,
+      time: '9:03 PM'
     }
   ],
   [
@@ -43,53 +85,11 @@ const recentData: WeeklyData[][] = [
       time: '11:03 AM'
     },
     {
-      mood: 2,
+      mood: 4,
       time: '4:03 AM'
     },
     {
-      mood: 1,
-      time: '9:03 AM'
-    }
-  ],
-  [
-    {
-      mood: 5,
-      time: '11:03 AM'
-    },
-    {
-      mood: 2,
-      time: '4:03 AM'
-    },
-    {
-      mood: 1,
-      time: '9:03 AM'
-    }
-  ],
-  [
-    {
-      mood: 5,
-      time: '11:03 AM'
-    },
-    {
-      mood: 2,
-      time: '4:03 AM'
-    },
-    {
-      mood: 1,
-      time: '9:03 AM'
-    }
-  ],
-  [
-    {
-      mood: 5,
-      time: '11:03 AM'
-    },
-    {
-      mood: 2,
-      time: '4:03 AM'
-    },
-    {
-      mood: 1,
+      mood: 4,
       time: '9:03 AM'
     }
   ]

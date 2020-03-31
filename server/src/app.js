@@ -8,11 +8,15 @@ import compression from 'compression';
 import morgan from 'morgan';
 import passport from 'passport';
 import { passportConfig } from './config/passport';
-require('dotenv').config();
+import webpush from 'web-push';
+
+require('dotenv').config({ path: '../.env' });
 
 // Import Routes
 import userRoute from './routes/userRoute';
+import notificationRoute from './routes/notificationRoute';
 
+// Setup MongoDB
 const uri = process.env.MONGO_URI;
 
 if (uri) {
@@ -30,6 +34,16 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
+
+console.log('HERE');
+console.log(process.env.MONGO_URI);
+
+// Configures push notifications
+webpush.setVapidDetails(
+  process.env.WEB_PUSH_CONTACT,
+  process.env.PUBLIC_VAPID_KEY,
+  process.env.PRIVATE_VAPID_KEY
+);
 
 const sessionSecret = process.env.SESSION_SECRET;
 
@@ -65,6 +79,7 @@ if (process.env.NODE_ENV === 'production') {
 
 // Routes
 app.use(userRoute);
+app.use(notificationRoute);
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => console.log(`Server is listening on ${PORT}`));

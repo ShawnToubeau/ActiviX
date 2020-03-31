@@ -13,6 +13,9 @@ const userSchema = new Schema({
     type: String,
     required: true
   },
+  subscription: {
+    type: String
+  },
   dateCreated: {
     type: Date,
     default: Date.now
