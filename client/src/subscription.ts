@@ -1,13 +1,16 @@
 import axios from 'axios';
 
-const convertedVapidKey = urlBase64ToUint8Array(
-  process.env.REACT_APP_PUBLIC_VAPID_KEY
-);
+const publicVapidKey = process.env.REACT_APP_PUBLIC_VAPID_KEY;
+let convertedVapidKey: Uint8Array;
 
-function urlBase64ToUint8Array(base64String) {
+if (publicVapidKey) {
+  convertedVapidKey = urlBase64ToUint8Array(publicVapidKey);
+}
+
+function urlBase64ToUint8Array(base64String: string) {
   const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
   // eslint-disable-next-line
-  const base64 = (base64String + padding)
+  const base64 = (base64String + padding) // eslint-disable-next-line
     .replace(/\-/g, '+')
     .replace(/_/g, '/');
 
@@ -20,7 +23,7 @@ function urlBase64ToUint8Array(base64String) {
   return outputArray;
 }
 
-function sendSubscription(subscription, userId) {
+function sendSubscription(subscription: PushSubscription, userId: string) {
   console.log(subscription);
   return axios
     .post(`/notification/subscribe/${userId}`, subscription)
@@ -32,7 +35,7 @@ function sendSubscription(subscription, userId) {
     });
 }
 
-export function subscribeUser(userID) {
+export function subscribeUser(userId: string) {
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.ready
       .then(function(registration) {
@@ -53,7 +56,7 @@ export function subscribeUser(userID) {
                 })
                 .then(function(newSubscription) {
                   console.log('New subscription added.');
-                  sendSubscription(newSubscription, userID);
+                  sendSubscription(newSubscription, userId);
                 })
                 .catch(function(e) {
                   if (Notification.permission !== 'granted') {
@@ -67,7 +70,7 @@ export function subscribeUser(userID) {
                 });
             } else {
               console.log('Existed subscription detected.');
-              sendSubscription(existedSubscription, userID);
+              sendSubscription(existedSubscription, userId);
             }
           });
       })

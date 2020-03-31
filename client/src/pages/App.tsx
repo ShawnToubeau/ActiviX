@@ -55,7 +55,7 @@ const App = (props: Props) => {
 
   // If the user is logged in, try to subscribe
   // them to notifications
-  if (auth.isAuthenticated) {
+  if (auth.isAuthenticated && auth.user.id) {
     subscribeUser(auth.user.id);
   }
 

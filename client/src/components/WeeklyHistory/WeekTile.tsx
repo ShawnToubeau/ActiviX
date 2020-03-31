@@ -55,7 +55,7 @@ const WeekTile = (props: SquareProps) => {
       <div
         className="tile-content"
         onClick={e => setModalOpen(true)}
-        style={{ height: '100%' }}
+        // style={{ height: '100%' }}
       >
         <p>{date}</p>
         <FontAwesomeIcon icon={icon} size="3x" />

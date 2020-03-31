@@ -3,8 +3,6 @@ import User from '../models/User';
 
 export const subscribeUser = (req, res) => {
   const subscription = req.body;
-  // console.log('SUBSCRIBE CONTR', req.params.id);
-  // console.log(req.body);
 
   const payload = JSON.stringify({
     title: 'ActiviX',
@@ -14,8 +12,6 @@ export const subscribeUser = (req, res) => {
   webpush
     .sendNotification(subscription, payload)
     .then(result => {
-      // console.log(result);
-      // console.log('Adding subscription to user');
       // Adds the subscription to the user's data
       // model for future notifications
       User.update(
@@ -23,7 +19,6 @@ export const subscribeUser = (req, res) => {
         { subscription: JSON.stringify(subscription) },
         (err, affected, res) => {
           if (err) throw err;
-          // Should I send a response?
         }
       );
     })
@@ -47,10 +42,7 @@ export const sendNotification = (req, res) => {
 
       webpush
         .sendNotification(subscription, payload)
-        .then(result => {
-          // console.log(result);
-          // Should I send a response
-        })
+        .then(result => {})
         .catch(e => console.error(e));
 
       res.status(200).json({ success: true });

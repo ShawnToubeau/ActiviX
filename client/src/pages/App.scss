@@ -89,9 +89,15 @@ $logoHeight: 52px;
 }
 
 .small-logo {
-  width: 60%;
+  width: 30%;
   margin-bottom: 5vh;
-  height: $logoHeight;
+}
+
+@media only screen and (max-width: 600px) {
+  .small-logo {
+    width: 60% !important;
+    height: $logoHeight;
+  }
 }
 
 .Login,
