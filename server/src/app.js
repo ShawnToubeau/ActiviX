@@ -29,7 +29,7 @@ if (uri) {
 }
 
 // Configures push notifications
-const webPushContact = process.env.WEB_PUSH_CONTACT;
+const webPushContact = 'mailto: contact@my-site.com';
 const publicVapidKey = process.env.PUBLIC_VAPID_KEY;
 const privateVapidKey = process.env.PRIVATE_VAPID_KEY;
 
