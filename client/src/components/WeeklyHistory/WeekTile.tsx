@@ -66,7 +66,7 @@ const WeekTile = (props: SquareProps) => {
           closeModal={() => setModalOpen(false)}
           headerText={`${date} Overview`}
         >
-          <p>Mood Record Times</p>
+          <p>Mood Recordings</p>
           {times.map((time, id) => (
             <p key={id}>
               {time.time}: {time.mood}
