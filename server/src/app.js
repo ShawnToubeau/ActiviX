@@ -66,6 +66,7 @@ app.use(passport.initialize());
 passportConfig(passport);
 
 if (process.env.NODE_ENV === 'production') {
+  console.log('APP.js PROD');
   app.use(compression());
   app.use(morgan('common'));
 
