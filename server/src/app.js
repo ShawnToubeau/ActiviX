@@ -10,7 +10,6 @@ import passport from 'passport';
 import { passportConfig } from './config/passport';
 import webpush from 'web-push';
 
-// require('dotenv').config({ path: '../.env' });
 require('dotenv').config();
 
 // Import Routes
