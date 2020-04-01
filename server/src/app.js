@@ -46,26 +46,21 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
 
-const sessionSecret = process.env.SESSION_SECRET;
+const sessionSecret = process.env.SESSION_SECRET || 'secret';
 
-if (sessionSecret) {
-  app.use(
-    session({
-      secret: sessionSecret,
-      resave: true,
-      saveUninitialized: true
-    })
-  );
-} else {
-  console.error('ERROR: Please provide a session secret');
-}
+app.use(
+  session({
+    secret: sessionSecret,
+    resave: true,
+    saveUninitialized: true
+  })
+);
 
 // Passport config
 app.use(passport.initialize());
 passportConfig(passport);
 
 if (process.env.NODE_ENV === 'production') {
-  console.log('APP.js PROD');
   app.use(compression());
   app.use(morgan('common'));
 

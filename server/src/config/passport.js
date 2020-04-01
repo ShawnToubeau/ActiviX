@@ -4,7 +4,7 @@ const dbUrl = 'http://localhost:5000';
 
 const opts = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: 'secret'
+  secretOrKey: process.env.JWT_SECRET || 'secret'
 };
 
 export const passportConfig = passport => {

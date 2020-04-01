@@ -9,7 +9,11 @@
   "scripts": {
     "build:client": "cd client && yarn install && yarn run build",
     "build:server": "cd server && yarn install && yarn run build",
-    "build": "yarn run build:client && yarn run build:server"
+    "build": "yarn run build:client && yarn run build:server",
+    "install-dep:client": "cd client && yarn",
+    "install-dep:server": "cd server && yarn",
+    "install-dep": "yarn run install-dep:client && yarn run install-dep:server",
+    "prod": "cd server && NODE_ENV=production node ./dist/app.js"
   },
   "repository": {
     "type": "git",
@@ -21,8 +25,5 @@
   "bugs": {
     "url": "https://github.com/ShawnToubeau/ActiviX/issues"
   },
-  "homepage": "https://github.com/ShawnToubeau/ActiviX#readme",
-  "dependencies": {
-    "concurrently": "^5.1.0"
-  }
+  "homepage": "https://github.com/ShawnToubeau/ActiviX#readme"
 }
