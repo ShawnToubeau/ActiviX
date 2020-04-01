@@ -80,6 +80,15 @@ $logoHeight: 52px;
   height: 100vh;
 }
 
+@media only screen and (min-width: 1670px) {
+  .App {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 50px;
+  }
+}
+
 .app-logo {
   width: 80%;
   margin: auto;
