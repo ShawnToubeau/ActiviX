@@ -6,9 +6,13 @@ This is a Wentworth Institute of Technology senior project by Shawn Toubeau, Mor
 
 ## Application Details
 
-This repo contains both the frontend React client and a **mock** Express backend server. The current server was built to help design the API routes and allow the client to experience a normal user flow. Eventually it will be replaced with a Django web server that Morgan is working on which will be responsible for more of our backend operations.
+This repo contains a React frontend client`[1]`, a Django RESTful backend`[2]`, and scripts for installing a MQTT server and MQTT client on linux based systems`[3]`.
 
-## Getting Started
+---
+
+## [1] Getting Started - Client
+
+A **mock** Express backend server is provided because it was used to help design the API routes and allow the client to experience a normal user flow. The goal was to connect the client with the Django backend server but we unfortunately ran out of time.
 
 ### Package Manager
 
@@ -100,3 +104,35 @@ This will output production builds at `./client/build` and `./server/dist` where
 ```bash
 yarn run prod
 ```
+
+---
+
+## [2] Getting Started - Django REST Backend API
+
+The backend of this project is accessed through a RESTful API for use with the frontend or other applications. The API is built from a Django project using Django REST Framework.
+Models can be found in the `activixapi/models.py` file, each of which has a call available for POST, GET, PUT, and DELETE. The API will accept data in standard JSON format. A specific record can be accessed through the API with it's corresponding primary key/unique ID. Every URL has the same functionality for this -- a /[pk]/ must be added to the general URL for the desired model. For example, to see user with ID = 70, the URL would be /users/70/. The data is serialized to or from JSON appropriately and any requested data will be in the JSON format as well.
+
+---
+
+## [3] MQTT Scripts
+
+### Server
+
+To implement the MQTT server/broker, run `./mosquittoInstall.sh` which will do a few things:
+
+- Update your environment to ensure MQTT is available
+- Install Mosquitto and Mosquitto-clients
+- Enable the service to start and run on restart
+- Log events for troubleshooting
+- Echo Version information
+
+### Client
+
+To implement the MQTT client, run `./clientInstall.sh`
+
+Client Dependencies:
+
+- Python2.7 and above
+- PIP3
+
+On a linux-based client, this script can install the client software. This will use the `pip` command to install the `paho.mqtt` service and log the installation within the `.mqttLog` file
