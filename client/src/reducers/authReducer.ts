@@ -7,7 +7,7 @@ export interface Auth {
   loading: boolean;
 }
 
-const initialState: Auth = {
+export const initialState: Auth = {
   isAuthenticated: false,
   user: {},
   loading: false

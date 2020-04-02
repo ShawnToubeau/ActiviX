@@ -3,11 +3,11 @@ import jwt_decode from 'jwt-decode';
 import { Dispatch, AnyAction } from 'redux';
 import { routerActions } from 'connected-react-router';
 
-import { GET_ERRORS, SET_CURRENT_USER, USER_LOADING } from './types';
-import setAuthToken from '../utils/setAuthToken';
+import { GET_ERRORS, SET_CURRENT_USER, USER_LOADING } from '../types';
+import setAuthToken from '../../utils/setAuthToken';
 
 // Interfaces
-import User from '../models/User';
+import User from '../../models/User';
 
 // Sign up user
 export const signUpUser = (userData: User) => (dispatch: Dispatch): void => {
@@ -27,8 +27,8 @@ export const signUpUser = (userData: User) => (dispatch: Dispatch): void => {
 };
 
 // Login user
-export const loginUser = (userData: User) => (dispatch: Dispatch): void => {
-  axios
+export const loginUser = (userData: User) => (dispatch: Dispatch) => {
+  return axios
     .post('/login', userData)
     .then((res: AxiosResponse) => {
       const { token } = res.data;
@@ -39,12 +39,12 @@ export const loginUser = (userData: User) => (dispatch: Dispatch): void => {
       // Set user
       dispatch(setCurrentUser(decodedToken));
     })
-    .catch(err =>
+    .catch(err => {
       dispatch({
         type: GET_ERRORS,
-        payload: err.response.data
-      })
-    );
+        payload: err
+      });
+    });
 };
 
 // Set user

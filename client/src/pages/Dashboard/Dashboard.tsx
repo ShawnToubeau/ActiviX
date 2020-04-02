@@ -9,7 +9,7 @@ import Accordion from '../../components/Accordion/Accordion';
 import WeeklyHistory from '../../components/WeeklyHistory/WeeklyHistory';
 import Modal from '../../components/Modal/Modal';
 // Actions
-import { logoutUser } from '../../actions/authActions';
+import { logoutUser } from '../../actions/authActions/authActions';
 // Reducers
 import { Auth } from '../../reducers/authReducer';
 // Interfaces

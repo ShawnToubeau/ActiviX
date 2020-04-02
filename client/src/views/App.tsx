@@ -11,16 +11,16 @@ import setAuthToken from '../utils/setAuthToken';
 import './App.scss';
 
 // Components
-import Login from './Login/Login';
-import SignUp from './SignUp/SignUp';
-import Dashboard from './Dashboard/Dashboard';
-import NotFound from './NotFound/NotFound';
+import Login from '../pages/Login/Login';
+import SignUp from '../pages/SignUp/SignUp';
+import Dashboard from '../pages/Dashboard/Dashboard';
+import NotFound from '../pages/NotFound/NotFound';
 import PrivateRoute from '../components/PrivateRoute';
 import PublicRoute from '../components/PublicRoute';
 
 import store, { history } from '../store/store';
 // Actions
-import { setCurrentUser, logoutUser } from '../actions/authActions';
+import { setCurrentUser, logoutUser } from '../actions/authActions/authActions';
 
 // Interfaces
 import { RootState } from 'typesafe-actions';
