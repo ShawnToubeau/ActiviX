@@ -7,7 +7,7 @@ import { Formik, Field, Form, FormikHelpers } from 'formik';
 import { SignUpValidation } from '../../utils/validationSchemas';
 
 // Actions
-import { signUpUser } from '../../actions/authActions';
+import { signUpUser } from '../../actions/authActions/authActions';
 
 // Interfaces
 import User from '../../models/User';
