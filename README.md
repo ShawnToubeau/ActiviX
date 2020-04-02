@@ -6,11 +6,11 @@ This is a Wentworth Institute of Technology senior project by Shawn Toubeau, Mor
 
 ## Application Details
 
-This repo contains a React frontend client`[1]`, a Django RESTful backend`[2]`, and scripts for installing a MQTT server and MQTT client on linux based systems`[3]`.
+This repo contains a React frontend client[1](https://github.com/ShawnToubeau/ActiviX#1-getting-started---client), a Django RESTful backend[2](https://github.com/ShawnToubeau/ActiviX#2-getting-started---django-rest-backend-api), and scripts for installing a MQTT server and MQTT client on linux based systems[3](https://github.com/ShawnToubeau/ActiviX#3-mqtt-scripts).
 
 ---
 
-## [1] Getting Started - Client
+## Getting Started - Client
 
 A **mock** Express backend server is provided because it was used to help design the API routes and allow the client to experience a normal user flow. The goal was to connect the client with the Django backend server but we unfortunately ran out of time.
 
